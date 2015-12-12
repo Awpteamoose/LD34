@@ -49,9 +49,6 @@ public class PlayerController : MonoBehaviour
 		if (Input.GetMouseButtonDown(1))
 			player.StartAttack();
 
-		if (Input.GetMouseButton(1))
-			player.ChargeAttack(Time.deltaTime);
-
 		if (Input.GetMouseButtonUp(1))
 			player.ReleaseAttack();
 

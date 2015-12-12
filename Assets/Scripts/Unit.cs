@@ -4,18 +4,26 @@ using UnityEngine.EventSystems;
 
 public class Unit : MonoBehaviour
 {
+	public enum Teams
+	{
+		Vikings,
+		Invaders
+	}
+
+	public Teams team;
 	public float runningSpeed;
 	public float walkingSpeed;
 	public float maxHealth;
 	public float health;
 
+	public float charge;
 	public bool attacking;
 	public bool rolling;
 	public bool dodging;
+	public bool charging;
 
 	private Animator animator;
 	private CharacterController mover;
-	private float charge;
 
 	//private int baseLayer;
 
@@ -60,7 +68,7 @@ public class Unit : MonoBehaviour
 	public void StartAttack()
 	{
 		if (Busy()) return;
-		Debug.Log("CHARGING ATTACK");
+		charging = true;
 	}
 
 	public void ChargeAttack(float time)
@@ -77,6 +85,7 @@ public class Unit : MonoBehaviour
 			Debug.Log("WEAK");
 		animator.SetTrigger("Attack");
 		charge = 0;
+		charging = false;
 	}
 
 	public void Damage(float damage)
@@ -96,5 +105,11 @@ public class Unit : MonoBehaviour
 	{
 		if (Busy()) return;
 		animator.SetTrigger("Roll");
+	}
+
+	void Update()
+	{
+		if (charging)
+			charge += Time.deltaTime;
 	}
 }

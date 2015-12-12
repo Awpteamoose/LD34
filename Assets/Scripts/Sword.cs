@@ -4,7 +4,7 @@ using UnityEngine.Assertions;
 
 public class Sword : MonoBehaviour
 {
-	public GameObject owner;
+	public Unit owner;
 	public float damage;
 
 	void Start()
@@ -17,7 +17,7 @@ public class Sword : MonoBehaviour
 		if (other.gameObject == owner) return;
 
 		var unit = other.GetComponent<Unit>();
-		if (unit)
+		if (unit && unit.team != owner.team)
 		{
 			unit.Damage(damage);
 			Debug.Log("SWORD STRIKE");
