@@ -39,9 +39,11 @@ public class PlayerController : MonoBehaviour
 			Debug.DrawRay(player.transform.position, wishDir);
 		}
 
-		if (Input.GetMouseButtonUp(0) && leftHeld <= 0.2f)
+		if (Input.GetMouseButtonUp(0))
 		{
-			player.Roll(wishDir);
+			player.Stop();
+			if (leftHeld <= 0.2f)
+				player.Roll(wishDir);
 		}
 
 		if (Input.GetMouseButtonDown(1))
