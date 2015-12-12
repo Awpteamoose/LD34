@@ -21,7 +21,7 @@ public class Unit : MonoBehaviour
 
 	bool Busy()
 	{
-		return attacking || rolling;
+		return attacking || rolling || !enabled;
 	}
 
 	void Awake()
@@ -83,10 +83,18 @@ public class Unit : MonoBehaviour
 	{
 		if (!dodging)
 			health -= damage;
+
+		if (health <= 0)
+		{
+			animator.SetTrigger("Die");
+			GetComponent<CharacterController>().enabled = false;
+			this.enabled = false;
+		}
 	}
 
 	public void Roll(Vector3 wishDir)
 	{
+		if (Busy()) return;
 		animator.SetTrigger("Roll");
 	}
 }

@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
 		if (Input.GetMouseButtonUp(0))
 		{
 			player.Stop();
-			if (leftHeld <= 0.2f)
+			if (leftHeld <= 0.15f)
 				player.Roll(wishDir);
 		}
 
