@@ -69,7 +69,6 @@ public class Unit : MonoBehaviour
 	public void StartAttack()
 	{
 		if (Busy()) return;
-		charging = true;
 		animator.SetTrigger("Charge");
 		Debug.Log("ATTACK START");
 	}
@@ -87,24 +86,21 @@ public class Unit : MonoBehaviour
 		else
 			Debug.Log("WEAK");
 		animator.SetTrigger("Attack");
-		charge = 0;
-		charging = false;
 	}
 
 	public void Damage(float damage)
 	{
 		if (!dodging)
+		{
 			health -= damage;
+			animator.SetTrigger("Damage");
+		}
 
 		if (health <= 0)
 		{
 			animator.SetTrigger("Die");
 			GetComponent<CharacterController>().enabled = false;
 			this.enabled = false;
-		}
-		else
-		{
-			animator.SetTrigger("Hit");
 		}
 	}
 
@@ -118,5 +114,7 @@ public class Unit : MonoBehaviour
 	{
 		if (charging)
 			charge += Time.deltaTime;
+		else
+			charge = 0;
 	}
 }
