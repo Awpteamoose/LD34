@@ -73,7 +73,7 @@ public class AIController : MonoBehaviour
 				if (unit.charge <= 0)
 				{
 					unit.StartAttack();
-					chargeTo = Random.Range(0.2f, 5f);
+					chargeTo = Random.Range(0.4f, 0.8f);
 				}
 			}
 			else if (unit.charge <= 0)

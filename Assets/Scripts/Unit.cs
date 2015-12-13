@@ -21,6 +21,7 @@ public class Unit : MonoBehaviour
 	public bool rolling;
 	public bool dodging;
 	public bool charging;
+	public bool hitstun;
 
 	private Animator animator;
 	private CharacterController mover;
@@ -29,7 +30,7 @@ public class Unit : MonoBehaviour
 
 	bool Busy()
 	{
-		return attacking || rolling || !enabled;
+		return attacking || rolling || hitstun || !enabled;
 	}
 
 	void Awake()
@@ -69,6 +70,8 @@ public class Unit : MonoBehaviour
 	{
 		if (Busy()) return;
 		charging = true;
+		animator.SetTrigger("Charge");
+		Debug.Log("ATTACK START");
 	}
 
 	public void ChargeAttack(float time)
@@ -78,7 +81,7 @@ public class Unit : MonoBehaviour
 
 	public void ReleaseAttack()
 	{
-		if (charge <= 0 && !attacking && !rolling) return;
+		if (charge <= 0 || Busy()) return;
 		if (charge > 0.5f)
 			Debug.Log("STRONG");
 		else
@@ -98,6 +101,10 @@ public class Unit : MonoBehaviour
 			animator.SetTrigger("Die");
 			GetComponent<CharacterController>().enabled = false;
 			this.enabled = false;
+		}
+		else
+		{
+			animator.SetTrigger("Hit");
 		}
 	}
 
